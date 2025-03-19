@@ -65,7 +65,8 @@ export function Navbar() {
                     sm:ease-apple
                     sm:z-50"
           style={{ 
-            transform: isMobile ? (mobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)') : 'none'
+            transform: isMobile ? (mobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)') : 'none',
+            backgroundColor: 'hsl(var(--sidebar, 222.2 84% 4.9%))'
           }}>
       
       {/* Mobile Menu Toggle */}
@@ -86,13 +87,13 @@ export function Navbar() {
           <div className="h-8 w-8 rounded-md bg-primary flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-lg">S</span>
           </div>
-          <span className="font-semibold text-xl md:block hidden">SimpleWork</span>
+          <span className="font-semibold text-xl md:block lg:block hidden text-white">SimpleWork</span>
         </div>
       </div>
       
       {/* Navigation Links */}
       <div className="px-3">
-        <ul className="space-y-1">
+        <ul className="space-y-4">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path || 
                            (item.path !== '/' && location.pathname.startsWith(item.path));
@@ -101,12 +102,12 @@ export function Navbar() {
                 <Link 
                   to={item.path}
                   className={cn(
-                    "nav-item flex items-center space-x-3 hover:bg-secondary",
-                    isActive && "active"
+                    "flex items-center space-x-3 p-2.5 rounded-md transition-colors text-white",
+                    isActive ? "bg-white/10" : "hover:bg-white/5",
                   )}
                 >
-                  <item.icon className="h-5 w-5 flex-shrink-0" />
-                  <span className="md:block lg:block hidden">{item.name}</span>
+                  <item.icon className={cn("h-5 w-5 flex-shrink-0")} />
+                  <span className="md:hidden lg:block">{item.name}</span>
                 </Link>
               </li>
             );
@@ -117,12 +118,12 @@ export function Navbar() {
       {/* Footer */}
       <div className="absolute bottom-0 left-0 right-0 p-6">
         <div className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center">
-            <span className="text-accent-foreground font-medium">JD</span>
+          <div className="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-white">
+            <span className="font-medium">JD</span>
           </div>
-          <div className="hidden md:block">
-            <p className="text-sm font-medium">John Doe</p>
-            <p className="text-xs text-muted-foreground">Administrator</p>
+          <div className="hidden md:hidden lg:block">
+            <p className="text-sm font-medium text-white">John Doe</p>
+            <p className="text-xs text-white/70">Administrator</p>
           </div>
         </div>
       </div>

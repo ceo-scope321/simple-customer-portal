@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Navbar, MobileMenuToggle } from './Navbar';
 import { Toaster } from '@/components/ui/toaster';
@@ -7,7 +7,13 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 export default function AppLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contentLoaded, setContentLoaded] = useState(false);
   const isMobile = useIsMobile();
+  
+  // Set content as loaded after initial render
+  useEffect(() => {
+    setContentLoaded(true);
+  }, []);
   
   return (
     <div className="min-h-screen flex w-full">
@@ -22,7 +28,7 @@ export default function AppLayout() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col min-h-screen pb-6 lg:pl-0 md:pl-0">
         <div className="flex-1 p-6 md:px-8 lg:px-10 overflow-y-auto">
-          <Outlet />
+          {contentLoaded && <Outlet />}
         </div>
       </main>
       
