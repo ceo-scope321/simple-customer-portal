@@ -16,7 +16,7 @@ export default function AppLayout() {
   }, []);
   
   return (
-    <div className="min-h-screen flex w-full">
+    <div className="h-screen flex w-full overflow-hidden">
       {/* Navbar */}
       <Navbar />
       
@@ -26,7 +26,7 @@ export default function AppLayout() {
       )}
       
       {/* Main Content */}
-      <main className="flex-1 flex flex-col min-h-screen pb-6 lg:pl-0 md:pl-0">
+      <main className="flex-1 flex flex-col h-screen overflow-hidden">
         <div className="flex-1 p-6 md:px-8 lg:px-10 overflow-y-auto">
           {contentLoaded && <Outlet />}
         </div>

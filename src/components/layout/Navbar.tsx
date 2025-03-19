@@ -48,21 +48,11 @@ export function Navbar() {
   }, [isMobile]);
 
   return (
-    <nav className="fixed left-0 top-0 h-screen w-64 bg-card border-r border-border shadow-elegant
+    <nav className="h-screen w-64 bg-card border-r border-border shadow-elegant
                     flex flex-col justify-between
-                    lg:translate-x-0 
-                    lg:relative
-                    lg:w-64
-                    lg:flex-shrink-0
-                    md:w-20
-                    md:translate-x-0
-                    md:relative
-                    sm:fixed
-                    sm:w-64
-                    sm:transition-transform
-                    sm:duration-300
-                    sm:ease-apple
-                    sm:z-50"
+                    lg:relative lg:translate-x-0 lg:w-64 lg:flex-shrink-0
+                    md:relative md:translate-x-0 md:w-20
+                    sm:fixed sm:w-64 sm:transition-transform sm:duration-300 sm:ease-apple sm:z-50"
           style={{ 
             transform: isMobile ? (mobileMenuOpen ? 'translateX(0)' : 'translateX(-100%)') : 'none',
             backgroundColor: 'hsl(var(--sidebar, 222.2 84% 4.9%))'
@@ -80,7 +70,7 @@ export function Navbar() {
         </Button>
       )}
       
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full overflow-hidden">
         {/* Logo */}
         <div className="p-6 mb-6 flex items-center justify-center md:justify-start">
           <div className="flex items-center space-x-2">
@@ -92,7 +82,7 @@ export function Navbar() {
         </div>
         
         {/* Navigation Links */}
-        <div className="px-3 flex-grow">
+        <div className="px-3 flex-grow overflow-y-auto">
           <ul className="space-y-4">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path || 
