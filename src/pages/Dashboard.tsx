@@ -1,9 +1,8 @@
-
-import { useEffect, useState } from 'react';
-import { Users, DollarSign, BarChart2, Calendar } from 'lucide-react';
-import { MetricCard } from '@/components/dashboard/MetricCard';
-import { DashboardCard } from '@/components/dashboard/DashboardCard';
-import { ThemeButton } from '@/components/ui/ThemeButton';
+import { useEffect, useState } from "react";
+import { Users, DollarSign, BarChart2, Calendar } from "lucide-react";
+import { MetricCard } from "@/components/dashboard/MetricCard";
+import { DashboardCard } from "@/components/dashboard/DashboardCard";
+import { ThemeButton } from "@/components/ui/ThemeButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   LineChart,
@@ -16,43 +15,53 @@ import {
   PieChart,
   Pie,
   Cell,
-} from 'recharts';
+} from "recharts";
 
 const salesData = [
-  { name: 'Jan', value: 4000 },
-  { name: 'Feb', value: 3000 },
-  { name: 'Mar', value: 5000 },
-  { name: 'Apr', value: 4500 },
-  { name: 'May', value: 6000 },
-  { name: 'Jun', value: 5500 },
-  { name: 'Jul', value: 7000 },
+  { name: "Jan", value: 4000 },
+  { name: "Feb", value: 3000 },
+  { name: "Mar", value: 5000 },
+  { name: "Apr", value: 4500 },
+  { name: "May", value: 6000 },
+  { name: "Jun", value: 5500 },
+  { name: "Jul", value: 7000 },
 ];
 
 const leadsBySource = [
-  { name: 'Website', value: 40 },
-  { name: 'Referral', value: 30 },
-  { name: 'Social', value: 20 },
-  { name: 'Other', value: 10 },
+  { name: "Website", value: 40 },
+  { name: "Referral", value: 30 },
+  { name: "Social", value: 20 },
+  { name: "Other", value: 10 },
 ];
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const recentActivity = [
-  { id: 1, action: 'New customer added', user: 'John Doe', time: '2 hours ago' },
-  { id: 2, action: 'Meeting scheduled', user: 'Jane Smith', time: '5 hours ago' },
-  { id: 3, action: 'Deal closed', user: 'Mike Johnson', time: 'Yesterday' },
-  { id: 4, action: 'Email sent', user: 'Sarah Williams', time: 'Yesterday' },
+  {
+    id: 1,
+    action: "New customer added",
+    user: "John Doe",
+    time: "2 hours ago",
+  },
+  {
+    id: 2,
+    action: "Meeting scheduled",
+    user: "Jane Smith",
+    time: "5 hours ago",
+  },
+  { id: 3, action: "Deal closed", user: "Mike Johnson", time: "Yesterday" },
+  { id: 4, action: "Email sent", user: "Sarah Williams", time: "Yesterday" },
 ];
 
 export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
-    // Simulate data loading
+    // Increase timeout to ensure content has time to render
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500);
-    
+    }, 1500); // Changed from 500 to 1500
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -61,20 +70,24 @@ export default function Dashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back to your CRM dashboard.</p>
+          <p className="text-muted-foreground">
+            Welcome back to your CRM dashboard.
+          </p>
         </div>
         <ThemeButton />
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {isLoading ? (
           // Loading skeletons for metric cards
-          Array(4).fill(0).map((_, index) => (
-            <Skeleton 
-              key={`metric-skeleton-${index}`} 
-              className="h-[132px] w-full rounded-lg" 
-            />
-          ))
+          Array(4)
+            .fill(0)
+            .map((_, index) => (
+              <Skeleton
+                key={`metric-skeleton-${index}`}
+                className="h-[132px] w-full rounded-lg"
+              />
+            ))
         ) : (
           <>
             <MetricCard
@@ -108,7 +121,7 @@ export default function Dashboard() {
           </>
         )}
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {isLoading ? (
           // Loading skeletons for chart cards
@@ -118,8 +131,8 @@ export default function Dashboard() {
           </>
         ) : (
           <>
-            <DashboardCard 
-              title="Sales Performance" 
+            <DashboardCard
+              title="Sales Performance"
               description="Last 7 months"
               className="lg:col-span-2"
               index={4}
@@ -131,24 +144,24 @@ export default function Dashboard() {
                     margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis 
-                      dataKey="name" 
+                    <XAxis
+                      dataKey="name"
                       axisLine={false}
                       tickLine={false}
                       tick={{ fontSize: 12 }}
                     />
-                    <YAxis 
+                    <YAxis
                       axisLine={false}
                       tickLine={false}
                       tick={{ fontSize: 12 }}
                       width={30}
                     />
-                    <Tooltip 
-                      contentStyle={{ 
-                        background: 'var(--background)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                    <Tooltip
+                      contentStyle={{
+                        background: "var(--background)",
+                        border: "1px solid var(--border)",
+                        borderRadius: "8px",
+                        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                       }}
                     />
                     <Line
@@ -157,15 +170,19 @@ export default function Dashboard() {
                       stroke="hsl(var(--primary))"
                       strokeWidth={2}
                       dot={{ r: 4, strokeWidth: 2 }}
-                      activeDot={{ r: 6, strokeWidth: 0, fill: 'hsl(var(--primary))' }}
+                      activeDot={{
+                        r: 6,
+                        strokeWidth: 0,
+                        fill: "hsl(var(--primary))",
+                      }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
             </DashboardCard>
-            
-            <DashboardCard 
-              title="Leads by Source" 
+
+            <DashboardCard
+              title="Leads by Source"
               description="Current distribution"
               index={5}
             >
@@ -180,19 +197,24 @@ export default function Dashboard() {
                       outerRadius={80}
                       paddingAngle={2}
                       dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      label={({ name, percent }) =>
+                        `${name} ${(percent * 100).toFixed(0)}%`
+                      }
                       labelLine={false}
                     >
                       {leadsBySource.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
                       ))}
                     </Pie>
-                    <Tooltip 
-                      contentStyle={{ 
-                        background: 'var(--background)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                    <Tooltip
+                      contentStyle={{
+                        background: "var(--background)",
+                        border: "1px solid var(--border)",
+                        borderRadius: "8px",
+                        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                       }}
                     />
                   </PieChart>
@@ -202,12 +224,12 @@ export default function Dashboard() {
           </>
         )}
       </div>
-      
+
       {isLoading ? (
         <Skeleton className="h-[200px] w-full rounded-lg" />
       ) : (
-        <DashboardCard 
-          title="Recent Activity" 
+        <DashboardCard
+          title="Recent Activity"
           description="Latest actions in the system"
           index={6}
         >
@@ -217,9 +239,13 @@ export default function Dashboard() {
                 <div className="flex justify-between">
                   <div>
                     <p className="font-medium">{activity.action}</p>
-                    <p className="text-sm text-muted-foreground">By {activity.user}</p>
+                    <p className="text-sm text-muted-foreground">
+                      By {activity.user}
+                    </p>
                   </div>
-                  <span className="text-xs text-muted-foreground">{activity.time}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {activity.time}
+                  </span>
                 </div>
               </div>
             ))}

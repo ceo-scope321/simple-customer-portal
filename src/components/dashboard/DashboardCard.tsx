@@ -1,7 +1,12 @@
-
-import { useEffect, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
+import { useEffect, useRef } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface DashboardCardProps {
   title: string;
@@ -16,42 +21,28 @@ export function DashboardCard({
   description,
   children,
   className,
-  index = 0
+  index = 0,
 }: DashboardCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-slide-in-bottom');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
     if (cardRef.current) {
-      observer.observe(cardRef.current);
+      // Remove initial opacity-0 class
+      cardRef.current.classList.remove("opacity-0");
+      cardRef.current.classList.add("animate-slide-in-bottom");
     }
-    
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
   }, []);
 
   return (
-    <Card 
+    <Card
       ref={cardRef}
-      className={cn(
-        "card-hover opacity-0",
-        className
-      )}
-      style={{ '--index': index } as React.CSSProperties}
+      className={cn("card-hover transition-all duration-300", className)}
+      style={
+        {
+          "--index": index,
+          animationDelay: `${index * 100}ms`,
+        } as React.CSSProperties
+      }
     >
       <CardHeader className="pb-2">
         <CardTitle>{title}</CardTitle>
