@@ -12,7 +12,11 @@ export default function AppLayout() {
   
   // Set content as loaded after initial render
   useEffect(() => {
-    setContentLoaded(true);
+    const timer = setTimeout(() => {
+      setContentLoaded(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
   
   return (
@@ -28,7 +32,7 @@ export default function AppLayout() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-screen overflow-hidden">
         <div className="flex-1 p-6 md:px-8 lg:px-10 overflow-y-auto">
-          {contentLoaded && <Outlet />}
+          <Outlet />
         </div>
       </main>
       
