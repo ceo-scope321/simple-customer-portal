@@ -221,7 +221,7 @@ export default function Pipeline() {
                     <div
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      className={`flex-1 rounded-lg min-h-[500px] space-y-2 transition-colors duration-200 ${
+                      className={`flex-1 rounded-lg min-h-[500px] p-1 space-y-2 transition-colors duration-200 ${
                         snapshot.isDraggingOver
                           ? `bg-${stage.color}-200`
                           : `bg-${stage.color}-100`
