@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { AppSidebar } from "@/layout/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
+import { ThemeButton } from "@/components/ui/ThemeButton";
 import {
   SidebarInset,
   SidebarProvider,
@@ -15,15 +16,18 @@ export default function AppLayout() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <header className="fixed top-0 z-10 flex h-16 w-full shrink-0 items-center justify-between gap-2 border-b bg-background transition-[width,height] ease-linear peer-data-[collapsible=icon]:w-[calc(100%-var(--sidebar-width-icon))] peer-data-[collapsible=offcanvas]:w-full group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
           </div>
+          <div className="flex items-center gap-2 px-4">
+            <ThemeButton />
+          </div>
         </header>
         {/* Page Content */}
-        <main className="flex-1">
-          <div className="flex-1 space-y-4 p-8 pt-6">
+        <main className="flex-1 pt-16">
+          <div className="flex-1 space-y-4 p-4 md:p-8 md:pt-6">
             <Outlet />
           </div>
         </main>

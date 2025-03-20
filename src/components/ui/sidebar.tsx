@@ -213,7 +213,9 @@ const Sidebar = React.forwardRef<
             <SheetDescription className="sr-only">
               Contains navigation links and application controls
             </SheetDescription>
-            <div className="flex h-full w-full flex-col">{children}</div>
+            <div className="flex h-full w-full flex-col bg-sidebar">
+              {children}
+            </div>
           </SheetContent>
         </Sheet>
       );
