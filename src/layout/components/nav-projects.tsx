@@ -34,7 +34,11 @@ interface Project {
 }
 
 export function NavProjects({ projects }: { projects: Project[] }) {
-  const { isMobile } = useSidebar();
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const handleNavigation = () => {
+    setOpenMobile(false);
+  };
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -43,7 +47,7 @@ export function NavProjects({ projects }: { projects: Project[] }) {
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild isActive={item.isActive}>
-              <Link to={item.url}>
+              <Link to={item.url} onClick={handleNavigation}>
                 <item.icon />
                 <span>{item.name}</span>
               </Link>
@@ -61,7 +65,7 @@ export function NavProjects({ projects }: { projects: Project[] }) {
                 align={isMobile ? "end" : "start"}
               >
                 <DropdownMenuItem asChild>
-                  <Link to={item.url}>
+                  <Link to={item.url} onClick={handleNavigation}>
                     <Folder className="mr-2 h-4 w-4 text-muted-foreground" />
                     Open Project
                   </Link>

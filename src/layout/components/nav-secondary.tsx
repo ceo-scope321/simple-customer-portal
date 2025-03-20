@@ -17,6 +17,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 interface NavItem {
@@ -28,10 +29,17 @@ interface NavItem {
     title: string;
     url: string;
     isActive?: boolean;
+    icon?: LucideIcon;
   }[];
 }
 
 export function NavSecondary({ items }: { items: NavItem[] }) {
+  const { setOpenMobile } = useSidebar();
+
+  const handleNavigation = () => {
+    setOpenMobile(false);
+  };
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Navigation</SidebarGroupLabel>
@@ -58,11 +66,12 @@ export function NavSecondary({ items }: { items: NavItem[] }) {
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild isActive={subItem.isActive}>
-                        <Link to={subItem.url}>
+                      <SidebarMenuButton asChild>
+                        <Link to={subItem.url} onClick={handleNavigation}>
+                          {subItem.icon && <subItem.icon />}
                           <span>{subItem.title}</span>
                         </Link>
-                      </SidebarMenuSubButton>
+                      </SidebarMenuButton>
                     </SidebarMenuSubItem>
                   ))}
                 </SidebarMenuSub>

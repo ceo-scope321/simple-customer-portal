@@ -10,6 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
 export function NavMain({
@@ -21,6 +22,12 @@ export function NavMain({
     icon?: LucideIcon;
   }[];
 }) {
+  const { setOpenMobile } = useSidebar();
+
+  const handleNavigation = () => {
+    setOpenMobile(false);
+  };
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -47,7 +54,7 @@ export function NavMain({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild tooltip={item.title}>
-                <Link to={item.url}>
+                <Link to={item.url} onClick={handleNavigation}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </Link>
