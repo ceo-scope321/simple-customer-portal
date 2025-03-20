@@ -109,10 +109,10 @@ const sampleDeals: Deal[] = [
 ];
 
 const stageDefinitions = [
-  { id: "contacted", name: "Contacted", color: "bg-blue-500" },
-  { id: "negotiation", name: "Negotiation", color: "bg-orange-500" },
-  { id: "proposal", name: "Proposal", color: "bg-purple-500" },
-  { id: "closed", name: "Closed", color: "bg-green-500" },
+  { id: "contacted", name: "Contacted", color: "rose" },
+  { id: "negotiation", name: "Negotiation", color: "amber" },
+  { id: "proposal", name: "Proposal", color: "sky" },
+  { id: "closed", name: "Closed", color: "teal" },
 ];
 
 export default function Pipeline() {
@@ -198,12 +198,14 @@ export default function Pipeline() {
       </div>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
           {stageDefinitions.map((stage) => (
             <div key={stage.id} className="flex flex-col h-full">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center">
-                  <div className={`w-2 h-5 rounded-sm mr-2 ${stage.color}`} />
+                  <div
+                    className={`w-2 h-5 rounded-sm mr-2 bg-${stage.color}-500`}
+                  />
                   <h3 className="font-medium">{stage.name}</h3>
                 </div>
                 <Badge variant="outline">
@@ -219,10 +221,10 @@ export default function Pipeline() {
                     <div
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      className={`flex-1 rounded-lg p-3 min-h-[500px] space-y-3 transition-colors duration-200 ${
+                      className={`flex-1 rounded-lg min-h-[500px] space-y-2 transition-colors duration-200 ${
                         snapshot.isDraggingOver
-                          ? "bg-secondary/80"
-                          : "bg-secondary/50"
+                          ? `bg-${stage.color}-200`
+                          : `bg-${stage.color}-100`
                       }`}
                     >
                       {deals
@@ -244,7 +246,7 @@ export default function Pipeline() {
                                     : "opacity-100 scale-100"
                                 }`}
                               >
-                                <CardContent className="p-3">
+                                <CardContent className="p-2">
                                   <div className="flex justify-between items-start mb-2">
                                     <div>
                                       <h3 className="font-medium">

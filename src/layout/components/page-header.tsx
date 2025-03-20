@@ -29,7 +29,7 @@ export function PageHeader({
   breadcrumbs,
 }: PageHeaderProps) {
   return (
-    <header className="flex items-center justify-between border-b p-4">
+    <header className="flex items-center justify-between border-b p-2">
       {/* Left section: Trigger + Breadcrumbs */}
       <div className="flex items-center gap-2">
         <SidebarTrigger />
