@@ -33,6 +33,13 @@
     --ring: 221 83% 53%;
 
     --radius: 0.75rem;
+
+    --sidebar: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222.2 47.4% 11.2%;
+    --sidebar-ring: 215 20.2% 65.1%;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -65,6 +72,15 @@
       --input: 217 33% 17%;
       --ring: 224 76% 48%;
     }
+  }
+
+  .dark {
+    --sidebar: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-ring: 215 20.2% 65.1%;
   }
 }
 

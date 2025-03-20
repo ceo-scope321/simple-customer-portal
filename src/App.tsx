@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,7 +8,7 @@ import Customers from "./pages/Customers";
 import Pipeline from "./pages/Pipeline";
 import Tasks from "./pages/Tasks";
 import NotFound from "./pages/NotFound";
-import AppLayout from "./components/layout/AppLayout";
+import AppLayout from "./layout/AppLayout";
 
 const queryClient = new QueryClient();
 
