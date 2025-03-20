@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Users, DollarSign, BarChart2, Calendar } from "lucide-react";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DashboardCard } from "@/components/dashboard/DashboardCard";
-import { ThemeButton } from "@/components/ui/ThemeButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   LineChart,
@@ -74,7 +73,6 @@ export default function Dashboard() {
             Welcome back to your CRM dashboard.
           </p>
         </div>
-        <ThemeButton />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

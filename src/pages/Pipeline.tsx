@@ -4,8 +4,7 @@ import {
   Droppable,
   Draggable,
   DropResult,
-} from "react-beautiful-dnd";
-import { ThemeButton } from "@/components/ui/ThemeButton";
+} from "@hello-pangea/dnd";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -110,10 +109,10 @@ const sampleDeals: Deal[] = [
 ];
 
 const stageDefinitions = [
-  { id: "contacted", name: "Contacted", color: "bg-blue-500" },
-  { id: "negotiation", name: "Negotiation", color: "bg-orange-500" },
-  { id: "proposal", name: "Proposal", color: "bg-purple-500" },
-  { id: "closed", name: "Closed", color: "bg-green-500" },
+  { id: "contacted", name: "Contacted", color: "rose" },
+  { id: "negotiation", name: "Negotiation", color: "amber" },
+  { id: "proposal", name: "Proposal", color: "sky" },
+  { id: "closed", name: "Closed", color: "teal" },
 ];
 
 export default function Pipeline() {
@@ -191,7 +190,6 @@ export default function Pipeline() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Pipeline</h1>
         <div className="flex items-center gap-2">
-          <ThemeButton />
           <Button>
             <PlusCircle className="mr-2 h-4 w-4" />
             Add Deal
@@ -200,12 +198,14 @@ export default function Pipeline() {
       </div>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
           {stageDefinitions.map((stage) => (
             <div key={stage.id} className="flex flex-col h-full">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center">
-                  <div className={`w-2 h-5 rounded-sm mr-2 ${stage.color}`} />
+                  <div
+                    className={`w-2 h-5 rounded-sm mr-2 bg-${stage.color}-500`}
+                  />
                   <h3 className="font-medium">{stage.name}</h3>
                 </div>
                 <Badge variant="outline">
@@ -215,96 +215,100 @@ export default function Pipeline() {
                 </Badge>
               </div>
 
-              <Droppable droppableId={stage.id}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    className={`flex-1 rounded-lg p-3 min-h-[500px] space-y-3 transition-colors duration-200 ${
-                      snapshot.isDraggingOver
-                        ? "bg-secondary/80"
-                        : "bg-secondary/50"
-                    }`}
-                  >
-                    {deals
-                      .filter((deal) => deal.stage === stage.id)
-                      .map((deal, index) => (
-                        <Draggable
-                          key={deal.id}
-                          draggableId={deal.id}
-                          index={index}
-                        >
-                          {(provided, snapshot) => (
-                            <Card
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              className={`select-none transition-all duration-200 ${
-                                snapshot.isDragging
-                                  ? "opacity-50 scale-95"
-                                  : "opacity-100 scale-100"
-                              }`}
-                            >
-                              <CardContent className="p-3">
-                                <div className="flex justify-between items-start mb-2">
-                                  <div>
-                                    <h3 className="font-medium">
-                                      {deal.title}
-                                    </h3>
-                                    <p className="text-sm text-muted-foreground">
-                                      {deal.company}
-                                    </p>
+              <Droppable droppableId={stage.id} key={stage.id}>
+                {(provided, snapshot) => {
+                  return (
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      className={`flex-1 rounded-lg min-h-[500px] space-y-2 transition-colors duration-200 ${
+                        snapshot.isDraggingOver
+                          ? `bg-${stage.color}-200`
+                          : `bg-${stage.color}-100`
+                      }`}
+                    >
+                      {deals
+                        .filter((deal) => deal.stage === stage.id)
+                        .map((deal, index) => (
+                          <Draggable
+                            key={deal.id}
+                            draggableId={deal.id}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <Card
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                className={`select-none transition-all duration-200 ${
+                                  snapshot.isDragging
+                                    ? "opacity-50 scale-95"
+                                    : "opacity-100 scale-100"
+                                }`}
+                              >
+                                <CardContent className="p-2">
+                                  <div className="flex justify-between items-start mb-2">
+                                    <div>
+                                      <h3 className="font-medium">
+                                        {deal.title}
+                                      </h3>
+                                      <p className="text-sm text-muted-foreground">
+                                        {deal.company}
+                                      </p>
+                                    </div>
+                                    <DropdownMenu>
+                                      <DropdownMenuTrigger asChild>
+                                        <Button
+                                          variant="ghost"
+                                          className="h-8 w-8 p-0"
+                                        >
+                                          <MoreHorizontal className="h-4 w-4" />
+                                        </Button>
+                                      </DropdownMenuTrigger>
+                                      <DropdownMenuContent align="end">
+                                        <DropdownMenuItem>
+                                          Edit
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                          Delete
+                                        </DropdownMenuItem>
+                                      </DropdownMenuContent>
+                                    </DropdownMenu>
                                   </div>
-                                  <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                      <Button
-                                        variant="ghost"
-                                        className="h-8 w-8 p-0"
-                                      >
-                                        <MoreHorizontal className="h-4 w-4" />
-                                      </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end">
-                                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                                      <DropdownMenuItem>
-                                        Delete
-                                      </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                  </DropdownMenu>
-                                </div>
 
-                                <div className="grid grid-cols-2 gap-2 text-sm">
-                                  <div className="flex items-center">
-                                    <DollarSign className="h-4 w-4 mr-1 text-muted-foreground" />
-                                    {formatCurrency(deal.value)}
+                                  <div className="grid grid-cols-2 gap-2 text-sm">
+                                    <div className="flex items-center">
+                                      <DollarSign className="h-4 w-4 mr-1 text-muted-foreground" />
+                                      {formatCurrency(deal.value)}
+                                    </div>
+                                    <div className="flex items-center">
+                                      <User className="h-4 w-4 mr-1 text-muted-foreground" />
+                                      {deal.contact}
+                                    </div>
+                                    {deal.dueDate && (
+                                      <>
+                                        <div className="flex items-center">
+                                          <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
+                                          {new Date(
+                                            deal.dueDate
+                                          ).toLocaleDateString()}
+                                        </div>
+                                        <div className="flex items-center">
+                                          <Clock className="h-4 w-4 mr-1 text-muted-foreground" />
+                                          {deal.probability}%
+                                        </div>
+                                      </>
+                                    )}
                                   </div>
-                                  <div className="flex items-center">
-                                    <User className="h-4 w-4 mr-1 text-muted-foreground" />
-                                    {deal.contact}
-                                  </div>
-                                  {deal.dueDate && (
-                                    <>
-                                      <div className="flex items-center">
-                                        <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
-                                        {new Date(
-                                          deal.dueDate
-                                        ).toLocaleDateString()}
-                                      </div>
-                                      <div className="flex items-center">
-                                        <Clock className="h-4 w-4 mr-1 text-muted-foreground" />
-                                        {deal.probability}%
-                                      </div>
-                                    </>
-                                  )}
-                                </div>
-                              </CardContent>
-                            </Card>
-                          )}
-                        </Draggable>
-                      ))}
-                    {provided.placeholder}
-                  </div>
-                )}
+                                </CardContent>
+                              </Card>
+                            )}
+                          </Draggable>
+                        ))}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
               </Droppable>
             </div>
           ))}
